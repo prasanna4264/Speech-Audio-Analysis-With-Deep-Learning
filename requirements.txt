@@ -1,0 +1,8 @@
+torch           # PyTorch
+torchvision     # torchvision (for image transformations and dataset handling, if needed)
+torchaudio      # torchaudio (for audio processing)
+numpy           # for handling arrays and numerical operations
+pandas          # for loading and processing CSV data
+matplotlib      # for plotting accuracy curves and confusion matrices
+scikit-learn    # for classification metrics like confusion matrix and reports
+Optuna		# for hyperparameter optimization

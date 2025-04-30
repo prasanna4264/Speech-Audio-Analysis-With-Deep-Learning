@@ -2,7 +2,10 @@
 # ANALYZING SPEECH AUDIO FILES WITH DEEP LEARNING
 
 This project implements a deep learning pipeline for **Speech Emotion Recognition (SER)** using multiple public datasets and audio features such as **MFCCs**, **Zero Crossing Rate (ZCR)**, and **Root Mean Square (RMS)** Energy. 
-The model architecture is built using TensorFlow and fine-tuned with Optuna, incorporating pruning strategies to explore the hyperparameter space and accelerate training efficiently. All development and experimentation are conducted in Jupyter Notebooks, with a focus on reproducibility and performance optimization.
+We provide two implementations:
+
+- A **Jupyter Notebook version (TensorFlow)** for experimentation and visualization
+- A **Script-based version (PyTorch)** for production-ready training and evaluation
 
 ---
 
@@ -20,7 +23,8 @@ Each audio file is processed to extract using the **featuresExtraction.py** scri
 - **Zero Crossing Rate (ZCR)**
 - **RMS Energy**
 
-Features are stored as `.npy` files and loaded into memory for model training.
+
+Use `notebooks/featuresExtraction.py` to extract and store these features as `.npy` files.
 
 ---
 
@@ -29,28 +33,42 @@ Features are stored as `.npy` files and loaded into memory for model training.
 - Option to train gender-specific models (e.g., female-only subset)
 
 ---
+## Model Architectures
 
-## Model Architecture
-A baseline **Conv1D Neural Network** with:
+### Notebook Version (TensorFlow)
+A **Conv1D Neural Network** with:
 - Two Conv1D layers
 - GlobalAveragePooling
 - Dense + Dropout layers
 - Softmax output layer (6 emotion classes)
 
-### Performance:
+**Performance**:
 - Validation Accuracy: ~92%
 - Test Accuracy: ~83%
 - Best result after Optuna tuning: **~85.4% Accuracy**
 
----
-
-## Hyperparameter Optimization
+**Hyperparameter Optimization**:
 Model performance is enhanced using **Optuna** with:
 - **PatientPruner + MedianPruner**
 - Optimized filters, kernel sizes, dropout rates, learning rates, batch size
 
 Reached an accuracy ~ 94%.
+
 ---
+
+### Script Version (PyTorch)
+Structured for fast training and deployment:
+- Modular files: `model.py`, `data_loading.py`, `train.py`, `evaluate.py`
+- Saved best model: `best_model.pth`
+- Auto-generated plots:
+  - `accuracy.png`
+  - `confusion_matrix.png`
+
+Run via:
+python main.py --csv_path path/to/df.csv
+
+---
+
 
 ## Evaluation
 - Classification Report (Precision, Recall, F1-score)
@@ -62,15 +80,25 @@ Reached an accuracy ~ 94%.
 ## Folder Structure
 ```
 project/
-├── mfccs/             # MFCC feature .npy files
-├── zcr/               # ZCR feature .npy files
-├── rms/               # RMS Energy feature .npy files
-├── ravdess/, crema/, tess/, savee/  # Audio datasets
-├── df.csv             # DataFrame with file paths, gender, emotion
-├── featuresExtraction.py
-├── conv1dModel_female.keras
-├── best_optuna_conv1d_model.keras
-├── speech-emotion-recognition.ipynb
+├── mfccs/                   # MFCC .npy files
+├── zcr/                     # ZCR .npy files
+├── rms/                     # RMS Energy .npy files
+├── ravdess/, crema/, ...    # Audio datasets
+├── df.csv                   # Metadata CSV
+├── main.py                  # PyTorch training entry point
+├── accuracy.png             # Accuracy curve
+├── confusion_matrix.png     # Confusion matrix
+├── best_model.pth           # Best PyTorch model weights
+├── notebooks/               # TensorFlow + notebook version
+│   ├── featuresExtraction.py
+│   ├── speech-emotion-recognition.ipynb
+│   ├── conv1dModel_female.keras
+│   └── best_optuna_conv1d_model.keras
+├── src/                     # PyTorch scripts
+│   ├── model.py
+│   ├── data_loading.py
+│   ├── evaluate.py
+│   └── train.py
 └── README.md
 ```
 
