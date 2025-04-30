@@ -1,7 +1,8 @@
 
 # ANALYZING SPEECH AUDIO FILES WITH DEEP LEARNING
 
-This project implements a deep learning pipeline for **Speech Emotion Recognition (SER)** using multiple public datasets and audio features such as **MFCCs**, **Zero Crossing Rate (ZCR)**, and **Root Mean Square (RMS)** Energy. The model is further optimized using **Optuna Hyperparameter Tuning** with pruning strategies. The entire project has been done in Jupyter Notebook.
+This project implements a deep learning pipeline for **Speech Emotion Recognition (SER)** using multiple public datasets and audio features such as **MFCCs**, **Zero Crossing Rate (ZCR)**, and **Root Mean Square (RMS)** Energy. 
+The model architecture is built using TensorFlow and fine-tuned with Optuna, incorporating pruning strategies to explore the hyperparameter space and accelerate training efficiently. All development and experimentation are conducted in Jupyter Notebooks, with a focus on reproducibility and performance optimization.
 
 ---
 
